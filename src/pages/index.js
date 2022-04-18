@@ -1,0 +1,9 @@
+export { Home } from './home/Home';
+export { Playlists } from './playlists/Playlists';
+export { Error } from './error/Error';
+export { Liked } from './liked/Liked';
+export { Login } from './auth/Login';
+export { Signup } from './auth/Signup';
+export { Watch } from './watch/Watch';
+export { WatchLater } from './watch-later/WatchLater';
+export { History } from './history/History';
