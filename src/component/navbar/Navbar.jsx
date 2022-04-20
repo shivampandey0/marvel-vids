@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context';
 import './Navbar.css';
 
 export const Navbar = () => {
+  const {
+    authState: { token, user },
+    handleLogout,
+  } = useAuth();
+
   return (
     <header className='header'>
       <nav className='navbar' role='navigation' aria-label='navigation'>
@@ -12,7 +18,7 @@ export const Navbar = () => {
         </div>
 
         <div className='search'>
-          <i className='fa-solid fa-magnifying-glass icon'/>
+          <i className='fa-solid fa-magnifying-glass icon' />
           <input
             className='search-field'
             type='text'
@@ -22,9 +28,15 @@ export const Navbar = () => {
         </div>
 
         <div>
-          <Link to={'/login'} className='btn btn-primary'>
-            Login
-          </Link>
+          {token ? (
+            <button onClick={handleLogout} className='btn btn-primary'>
+              {user?.firstname}
+            </button>
+          ) : (
+            <Link to={'/login'} className='btn btn-primary'>
+              Login
+            </Link>
+          )}
         </div>
       </nav>
     </header>
