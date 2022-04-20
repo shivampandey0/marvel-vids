@@ -1,0 +1,29 @@
+.form-container {
+  height: calc(100vh - 20vh);
+  margin: auto;
+}
+
+.form-container form {
+  max-width: var(--size-96);
+  min-width: var(--size-80);
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  color: var(--primary-text);
+  gap: var(--scale-1);
+  margin: var(--size-2) 0;
+}
+
+input[type='checkbox'] {
+  margin-right: var(--size-4);
+  margin-bottom: var(--size-2);
+}
+
+@media screen and (max-width: 768px) {
+  .input-row {
+    flex-direction: column;
+  }
+}
