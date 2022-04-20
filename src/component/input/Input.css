@@ -1,0 +1,19 @@
+.pass-toggle {
+  position: relative;
+}
+
+.pass-toggle .icon {
+  position: absolute;
+  cursor: pointer;
+  top: 25%;
+  color: var(--secondary-text);
+  bottom: 20%;
+  text-align: center;
+  font-size: var(--scale-1);
+  right: 2%;
+}
+
+.pass-toggle .icon:hover {
+  color: var(--primary);
+}
+
