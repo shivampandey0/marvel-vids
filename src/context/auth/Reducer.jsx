@@ -5,8 +5,14 @@ export const authReducer = (state, action) => {
     case ACTION_TYPES.LOGIN:
       return {
         ...state,
-        token: action.payload.token ?? state.token,
+        token: action.payload.token,
         user: { firstname: action.payload.firstname },
+      };
+
+    case ACTION_TYPES.USER_DATA:
+      return {
+        ...state,
+        user: action.payload,
       };
 
     case ACTION_TYPES.LOGOUT:

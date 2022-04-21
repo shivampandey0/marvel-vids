@@ -6,6 +6,7 @@ export const Navbar = () => {
   const {
     authState: { token, user },
     handleLogout,
+    loading,
   } = useAuth();
 
   return (
@@ -30,6 +31,7 @@ export const Navbar = () => {
         <div>
           {token ? (
             <button onClick={handleLogout} className='btn btn-primary'>
+              {loading && <i className='fas fa-circle-notch fa-spin'></i>}{' '}
               {user?.firstname}
             </button>
           ) : (

@@ -6,5 +6,6 @@ export const requests = {
 
 export const ACTION_TYPES = {
   LOGIN: 'LOGIN',
+  USER_DATA: 'USER_DATA',
   LOGOUT: 'LOGOUT',
 };

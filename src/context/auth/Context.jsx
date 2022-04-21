@@ -46,21 +46,22 @@ const AuthProvider = ({ children }) => {
     authDispatch({ type: 'LOGOUT' });
   };
 
-  console.log(authState);
-
   useEffect(() => {
     if (authState.token) {
       (async () => {
+        setLoading(true);
         try {
           const res = await axios.get(requests.self, {
             headers: { authorization: authState.token },
           });
 
           if (res.status === 200) {
-            authDispatch({ type: ACTION_TYPES.LOGIN, payload: res.data });
+            authDispatch({ type: ACTION_TYPES.USER_DATA, payload: res.data });
           }
         } catch (error) {
           console.log(error);
+        } finally {
+          setLoading(false);
         }
       })();
     }
