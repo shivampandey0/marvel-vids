@@ -1,0 +1,10 @@
+:root {
+  --primary: #345b63;
+  --primary-light: #d4ecdd;
+  --primary-dark: #152d35;
+}
+
+html {
+  overflow: hidden;
+  font-family: 'Lato', sans-serif;
+}
