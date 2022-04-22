@@ -1,6 +1,32 @@
-.header{
-    position: sticky;
-    top: 0;
-    z-index: 5;
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.user {
+  position: relative;
+  transition: 0.3s all linear;
+}
+
+.user > * {
+  transition: 0.3s all linear;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  z-index: 8;
+}
+
+.dropdown-item {
+  padding: 0.5rem 2rem;
+  background-color: var(--primary-dark);
+  transition: 0.3s all linear;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: var(--primary);
 }
 
