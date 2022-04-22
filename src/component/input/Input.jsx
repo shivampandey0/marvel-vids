@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './Input.css';
 export const Input = ({
   label,
+  id,
   type,
   placeholder,
   autoComplete,
@@ -20,7 +21,8 @@ export const Input = ({
         <input
           className='input'
           type={obscure ? type : 'text'}
-          id={label}
+          id={id}
+          name={id}
           value={value}
           placeholder={placeholder}
           required={required}

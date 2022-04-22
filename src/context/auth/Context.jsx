@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const res = await axios.post(route, data);
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         authDispatch({ type: ACTION_TYPES.LOGIN, payload: res.data });
         localStorage.setItem('token', res.data.token);
       }
