@@ -39,7 +39,7 @@ export const Login = () => {
         />
 
         <Input
-          label={'Passwod'}
+          label={'Password'}
           required={true}
           type={'password'}
           changeHandler={(e) =>

@@ -34,7 +34,6 @@ const AuthProvider = ({ children }) => {
       }
       navigate(path, { replace: true });
     } catch (error) {
-      console.log(error);
       setError(error);
     } finally {
       setLoading(false);
@@ -59,7 +58,7 @@ const AuthProvider = ({ children }) => {
             authDispatch({ type: ACTION_TYPES.USER_DATA, payload: res.data });
           }
         } catch (error) {
-          console.log(error);
+          throw Error(error);
         } finally {
           setLoading(false);
         }

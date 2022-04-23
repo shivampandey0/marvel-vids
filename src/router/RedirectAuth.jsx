@@ -1,8 +1,8 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../context';
 
-export const RedirectAuth = ({ children }) => {
+export const RedirectAuth = () => {
   const {
     authState: { token },
   } = useAuth();
@@ -12,7 +12,6 @@ export const RedirectAuth = ({ children }) => {
   return token ? (
     <Navigate to={'/'} state={{ from: location }} replace />
   ) : (
-    children
+    <Outlet />
   );
 };
-

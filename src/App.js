@@ -25,55 +25,17 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/watch/:id' element={<Watch />} />
 
-            <Route
-              path='/login'
-              element={
-                <RedirectAuth>
-                  <Login />
-                </RedirectAuth>
-              }
-            />
-            <Route
-              path='/signup'
-              element={
-                <RedirectAuth>
-                  <Signup />
-                </RedirectAuth>
-              }
-            />
+            <Route element={<RedirectAuth />}>
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
+            </Route>
 
-            <Route
-              path='/history'
-              element={
-                <RequiresAuth>
-                  <History />
-                </RequiresAuth>
-              }
-            />
-            <Route
-              path='/liked'
-              element={
-                <RequiresAuth>
-                  <Liked />
-                </RequiresAuth>
-              }
-            />
-            <Route
-              path='/playlists'
-              element={
-                <RequiresAuth>
-                  <Playlists />
-                </RequiresAuth>
-              }
-            />
-            <Route
-              path='/watchLater'
-              element={
-                <RequiresAuth>
-                  <WatchLater />
-                </RequiresAuth>
-              }
-            />
+            <Route element={<RequiresAuth />}>
+              <Route path='/history' element={<History />} />
+              <Route path='/liked' element={<Liked />} />
+              <Route path='/playlists' element={<Playlists />} />
+              <Route path='/watchLater' element={<WatchLater />} />
+            </Route>
           </Routes>
         </section>
       </main>
