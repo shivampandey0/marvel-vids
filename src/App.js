@@ -11,6 +11,7 @@ import {
   Watch,
   WatchLater,
 } from './pages';
+import { RedirectAuth, RequiresAuth } from './router';
 
 function App() {
   return (
@@ -22,13 +23,19 @@ function App() {
           <Routes>
             <Route path='*' element={<Error />} />
             <Route path='/' element={<Home />} />
-            <Route path='/history' element={<History />} />
-            <Route path='/liked' element={<Liked />} />
-            <Route path='/playlists' element={<Playlists />} />
             <Route path='/watch/:id' element={<Watch />} />
-            <Route path='/watchLater' element={<WatchLater />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
+
+            <Route element={<RedirectAuth />}>
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
+            </Route>
+
+            <Route element={<RequiresAuth />}>
+              <Route path='/history' element={<History />} />
+              <Route path='/liked' element={<Liked />} />
+              <Route path='/playlists' element={<Playlists />} />
+              <Route path='/watchLater' element={<WatchLater />} />
+            </Route>
           </Routes>
         </section>
       </main>

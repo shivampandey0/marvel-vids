@@ -18,3 +18,13 @@
 .pos-absolute {
   position: absolute;
 }
+
+/* colors */
+
+.primary-link {
+  color: var(--primary);
+}
+
+.primary-link:hover {
+  border-bottom: 2px solid var(--primary);
+}
