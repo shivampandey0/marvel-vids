@@ -1,2 +1,3 @@
-export { requests, ACTION_TYPES } from './constants';
+export { categories, requests, ACTION_TYPES } from './constants';
 export { instance as axios } from './axios';
+export {getVideos} from './server-request';
