@@ -8,6 +8,7 @@
   overflow: auto;
   overflow-x: hidden;
   width: 100%;
+  padding-bottom: var(--scale-4);
 }
 
 /* Positions */
@@ -17,6 +18,10 @@
 
 .pos-absolute {
   position: absolute;
+}
+
+.pos-sticky {
+  position: sticky;
 }
 
 /* colors */
