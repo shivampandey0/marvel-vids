@@ -1,0 +1,33 @@
+.card {
+  align-self: stretch;
+  width: auto;
+  align-content: flex-start;
+}
+
+.card-image {
+  width: 100%;
+  order: 0;
+}
+
+.card-body {
+  width: 85%;
+  order: 1;
+  padding: var(--size-2);
+}
+
+.card-icons {
+  width: 10%;
+  order: 2;
+  position: relative;
+  margin-right: 2%;
+  align-items: center;
+}
+
+.card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
