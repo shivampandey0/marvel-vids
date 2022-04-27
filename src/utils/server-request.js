@@ -12,4 +12,15 @@ const getVideos = async (dispatch) => {
   }
 };
 
-export { getVideos };
+const getVideo = async (id) => {
+  try {
+    const res = await axios.get(`${requests.videos}/${id}`);
+    if (res.status === 200) {
+      return res?.data?.video;
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+export { getVideos, getVideo };
