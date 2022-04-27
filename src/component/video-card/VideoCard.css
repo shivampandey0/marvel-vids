@@ -27,14 +27,6 @@
   opacity: 0.8;
 }
 
-.card-icons > button > svg {
-  color: black;
-  font-weight: bold;
-  stroke-width: 0.5px;
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
 .card-title {
   overflow: hidden;
   text-overflow: ellipsis;
