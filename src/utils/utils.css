@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-.container section {
+.container > section {
   overflow: auto;
   overflow-x: hidden;
   width: 100%;
@@ -32,4 +32,21 @@
 
 .primary-link:hover {
   border-bottom: 2px solid var(--primary);
+}
+
+/* svg icons */
+
+svg {
+  color: black;
+  font-weight: bold;
+  stroke-width: 0.5px;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+@media screen and (max-width: 70em) {
+  svg {
+    height: 1rem;
+    width: 1rem;
+  }
 }
