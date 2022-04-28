@@ -3,6 +3,7 @@ export const requests = {
   signup: '/users/signup',
   self: '/users/self',
   videos: '/videos',
+  liked: '/liked',
 };
 
 export const ACTION_TYPES = {
@@ -10,6 +11,7 @@ export const ACTION_TYPES = {
   USER_DATA: 'USER_DATA',
   LOGOUT: 'LOGOUT',
   VIDEOS: 'VIDEOS',
+  LIKED: 'LIKED',
 };
 
 export const categories = [
