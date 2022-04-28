@@ -1,12 +1,15 @@
 import './VideoCard.css';
 import { BsStopwatch } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 export const VideoCard = ({ video }) => {
-  const { title, vid, creator } = video;
+  const { title, vid, creator, _id } = video;
+
+  const navigate = useNavigate();
 
   return (
     <div className='card flex-row flex-wrap justify-sb'>
-      <figure className='card-image'>
+      <figure className='card-image' onClick={() => navigate(`/watch/${_id}`)}>
         <img
           className='img-responsive'
           src={`https://img.youtube.com/vi/${vid}/mqdefault.jpg`}

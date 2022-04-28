@@ -1,0 +1,52 @@
+.watch-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 3fr 1fr;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.video-section {
+  background-color: white;
+  padding: 1rem;
+}
+
+.suggestions-section {
+  margin: 1rem 0;
+}
+
+.suggestions {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: var(--size-2) 0;
+  margin-bottom: 2rem;
+  gap: var(--size-2);
+}
+
+.player-wrapper {
+  position: relative;
+  margin: var(--size-2) 0;
+  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 70em) {
+  .watch-container {
+    grid-template-columns: 1fr;
+  }
+
+  .suggestions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 40em) {
+  .suggestions {
+    grid-template-columns: 1fr;
+  }
+}
