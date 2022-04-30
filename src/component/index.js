@@ -5,4 +5,5 @@ export { Chip } from './chip/Chip';
 export { IconText } from './button/IconText';
 export { VideoLoader } from './loader/VideoLoader';
 export { VideoCard } from './video-card/VideoCard';
+export { HorizontalCard } from './video-card/HorizontalCard';
 export { FormError } from './form-error/FormError';
