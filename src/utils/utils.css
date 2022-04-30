@@ -37,6 +37,10 @@
 
 /* svg icons */
 
+.stroke-none{
+  stroke-width: 0;
+}
+
 svg {
   color: black;
   font-weight: bold;
