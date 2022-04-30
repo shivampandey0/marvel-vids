@@ -4,6 +4,7 @@ export const requests = {
   self: '/users/self',
   videos: '/videos',
   liked: '/liked',
+  history: '/history',
 };
 
 export const ACTION_TYPES = {
@@ -12,6 +13,7 @@ export const ACTION_TYPES = {
   LOGOUT: 'LOGOUT',
   VIDEOS: 'VIDEOS',
   LIKED: 'LIKED',
+  HISTORY: 'HISTORY',
 };
 
 export const categories = [
