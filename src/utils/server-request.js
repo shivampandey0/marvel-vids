@@ -23,22 +23,24 @@ const getVideo = async (id) => {
   }
 };
 
-const getLiked = async (token) => {
+const getLiked = async (token, dispatch) => {
   try {
     const res = await axios.get(requests.liked, {
       headers: { authorization: token },
     });
 
     if (res.status === 200) {
-      return res?.data?.likedVideoItems;
+      dispatch({
+        type: ACTION_TYPES.LIKED,
+        payload: res?.data?.likedVideoItems,
+      });
     }
   } catch (error) {
-    console.log(error);
+     throw Error(error);
   }
 };
 
 const likeVideo = async (token, _id, dispatch) => {
-  console.log(token, _id);
   try {
     const res = await axios.post(
       requests.liked,
@@ -50,13 +52,11 @@ const likeVideo = async (token, _id, dispatch) => {
       }
     );
 
-    console.log(res);
-
     if (res.status === 200 || res.status === 201) {
       dispatch({ type: ACTION_TYPES.LIKED, payload: res?.data?.likedVideo });
     }
   } catch (error) {
-    console.log(error);
+     throw Error(error);
   }
 };
 
