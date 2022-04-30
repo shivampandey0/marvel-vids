@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { useParams } from 'react-router-dom';
-import { getVideo, likeVideo } from '../../utils';
+import { addToHistory, getVideo, likeVideo } from '../../utils';
 import { AiOutlineLike, AiTwotoneDislike } from 'react-icons/ai';
 import { BiListPlus, BiStopwatch } from 'react-icons/bi';
 import { useData } from '../../context/data/Context';
@@ -25,6 +25,7 @@ export const Watch = () => {
   useEffect(() => {
     (async () => {
       const res = await getVideo(id);
+      if (token) addToHistory(res?._id, token, authDispatch);
       setVideo(() => res);
     })();
   }, [id]);
