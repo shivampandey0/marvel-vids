@@ -27,6 +27,15 @@ export const authReducer = (state, action) => {
         },
       };
 
+    case ACTION_TYPES.HISTORY:
+      return {
+        ...state,
+        user: {
+          ...state?.user,
+          history: action.payload,
+        },
+      };
+
     default:
       return state;
   }

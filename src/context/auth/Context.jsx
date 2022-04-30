@@ -6,7 +6,13 @@ import {
   useEffect,
 } from 'react';
 import { authReducer } from './Reducer';
-import { ACTION_TYPES, axios, getLiked, requests } from '../../utils';
+import {
+  ACTION_TYPES,
+  axios,
+  getHistory,
+  getLiked,
+  requests,
+} from '../../utils';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -18,6 +24,7 @@ const AuthProvider = ({ children }) => {
     token: localStorage.getItem('token'),
     user: {
       liked: [],
+      history: [],
     },
   });
 
@@ -58,6 +65,7 @@ const AuthProvider = ({ children }) => {
           if (res.status === 200) {
             authDispatch({ type: ACTION_TYPES.USER_DATA, payload: res.data });
             getLiked(authState.token, authDispatch);
+            getHistory(authState.token, authDispatch);
           }
         } catch (error) {
           if (error) handleLogout();
