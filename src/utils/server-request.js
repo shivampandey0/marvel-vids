@@ -23,4 +23,129 @@ const getVideo = async (id) => {
   }
 };
 
-export { getVideos, getVideo };
+const getLiked = async (token, dispatch) => {
+  try {
+    const res = await axios.get(requests.liked, {
+      headers: { authorization: token },
+    });
+
+    if (res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.LIKED,
+        payload: res?.data?.likedVideoItems,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const likeVideo = async (token, _id, dispatch) => {
+  try {
+    const res = await axios.post(
+      requests.liked,
+      {
+        _id,
+      },
+      {
+        headers: { authorization: token },
+      }
+    );
+
+    if (res.status === 200 || res.status === 201) {
+      dispatch({ type: ACTION_TYPES.LIKED, payload: res?.data?.likedVideo });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const getHistory = async (token, dispatch) => {
+  try {
+    const res = await axios.get(requests.history, {
+      headers: { authorization: token },
+    });
+
+    if (res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.HISTORY,
+        payload: res?.data?.historyItems,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const addToHistory = async (_id, token, dispatch) => {
+  try {
+    const res = await axios.post(
+      requests.history,
+      { _id },
+      {
+        headers: { authorization: token },
+      }
+    );
+
+    if (res.status === 201) {
+      dispatch({
+        type: ACTION_TYPES.HISTORY,
+        payload: res?.data?.historyItems,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const removeFromHistory = async (_id, token, dispatch) => {
+  try {
+    const res = await axios.put(
+      requests.history,
+      { _id },
+      {
+        headers: { authorization: token },
+      }
+    );
+
+    if (res.status === 201 || res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.HISTORY,
+        payload: res?.data?.history,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const clearHistory = async (token, dispatch) => {
+  try {
+    const res = await axios.delete(
+      requests.history,
+      {
+        headers: { authorization: token },
+      }
+    );
+
+    if (res.status === 201 || res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.HISTORY,
+        payload: res?.data?.history,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+export {
+  getVideos,
+  getVideo,
+  getLiked,
+  likeVideo,
+  getHistory,
+  addToHistory,
+  removeFromHistory,
+  clearHistory,
+};

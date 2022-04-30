@@ -23,7 +23,7 @@
   align-items: center;
 }
 
-.card-icons > button{
+.card-icons > button {
   opacity: 0.8;
 }
 
@@ -34,4 +34,21 @@
   line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.card-h {
+  align-self: flex-start;
+  align-content: center;
+  justify-content: stretch;
+  width: 100%;
+  cursor: pointer;
+}
+
+.card-h > .card-image{
+  width: unset;
+}
+
+.card-h .card-body {
+  padding: var(--size-2);
+  width: 100%;
 }

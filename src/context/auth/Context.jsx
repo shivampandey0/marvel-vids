@@ -6,7 +6,13 @@ import {
   useEffect,
 } from 'react';
 import { authReducer } from './Reducer';
-import { ACTION_TYPES, axios, requests } from '../../utils';
+import {
+  ACTION_TYPES,
+  axios,
+  getHistory,
+  getLiked,
+  requests,
+} from '../../utils';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -16,12 +22,14 @@ const useAuth = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
   const [authState, authDispatch] = useReducer(authReducer, {
     token: localStorage.getItem('token'),
-    user: null,
+    user: {
+      liked: [],
+      history: [],
+    },
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-
   const navigate = useNavigate();
 
   const handleSubmit = async (data, path, route) => {
@@ -56,15 +64,21 @@ const AuthProvider = ({ children }) => {
 
           if (res.status === 200) {
             authDispatch({ type: ACTION_TYPES.USER_DATA, payload: res.data });
+            getLiked(authState.token, authDispatch);
+            getHistory(authState.token, authDispatch);
           }
         } catch (error) {
-          throw Error(error);
+          if (error) handleLogout();
         } finally {
           setLoading(false);
         }
       })();
     }
   }, []);
+
+  const isLiked = (_id) => {
+    return authState?.user?.liked?.some((vid) => vid._id === _id);
+  };
 
   return (
     <AuthContext.Provider
@@ -75,6 +89,7 @@ const AuthProvider = ({ children }) => {
         authDispatch,
         loading,
         error,
+        isLiked,
       }}
     >
       {children}
