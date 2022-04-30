@@ -28,10 +28,11 @@
 
 .primary-link {
   color: var(--primary);
+  border-bottom: 2px solid transparent;
 }
 
 .primary-link:hover {
-  border-bottom: 2px solid var(--primary);
+  border-bottom-color: var(--primary);
 }
 
 /* svg icons */
