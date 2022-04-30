@@ -6,17 +6,26 @@ export const authReducer = (state, action) => {
       return {
         ...state,
         token: action.payload.token,
-        user: { firstname: action.payload.firstname },
+        user: { ...state.user, firstname: action.payload.firstname },
       };
 
     case ACTION_TYPES.USER_DATA:
       return {
         ...state,
-        user: action.payload,
+        user: { ...state.user, ...action.payload },
       };
 
     case ACTION_TYPES.LOGOUT:
       return {};
+
+    case ACTION_TYPES.LIKED:
+      return {
+        ...state,
+        user: {
+          ...state?.user,
+          liked: action.payload,
+        },
+      };
 
     default:
       return state;
