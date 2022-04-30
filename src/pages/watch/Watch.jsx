@@ -1,19 +1,26 @@
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { useParams } from 'react-router-dom';
-import { getVideo } from '../../utils';
-import { AiTwotoneLike } from 'react-icons/ai';
+import { getVideo, likeVideo } from '../../utils';
+import { AiOutlineLike, AiTwotoneDislike } from 'react-icons/ai';
 import { BiListPlus, BiStopwatch } from 'react-icons/bi';
 import { useData } from '../../context/data/Context';
 import './Watch.css';
 import { IconText, VideoCard } from '../../component';
+import { useAuth } from '../../context';
 
 export const Watch = () => {
   const { id } = useParams();
+  const [video, setVideo] = useState();
   const {
     state: { videos },
   } = useData();
-  const [video, setVideo] = useState();
+
+  const {
+    authState: { token },
+    authDispatch,
+    isLiked,
+  } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -30,6 +37,8 @@ export const Watch = () => {
     }, []);
 
   const relatedVideos = getRelatedVideos(video);
+
+  const isVideoLiked = isLiked(video?._id);
 
   return (
     <>
@@ -50,8 +59,11 @@ export const Watch = () => {
             </div>
             <div>
               <div className='flex-row gap-05'>
-                <IconText title='Like'>
-                  <AiTwotoneLike />
+                <IconText
+                  title={isVideoLiked ? 'Dislike' : 'Like'}
+                  onClick={() => likeVideo(token, video?._id, authDispatch)}
+                >
+                  {isVideoLiked ? <AiTwotoneDislike /> : <AiOutlineLike />}
                 </IconText>
                 <IconText title='Add to Watch Later'>
                   <BiStopwatch />
@@ -62,7 +74,6 @@ export const Watch = () => {
               </div>
             </div>
             <hr />
-
             <div>
               <h3 className='my-2'>Description</h3>
               <p>{video?.description}</p>
