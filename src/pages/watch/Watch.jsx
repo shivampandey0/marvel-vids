@@ -1,18 +1,26 @@
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { useParams } from 'react-router-dom';
-import { addToHistory, getVideo, likeVideo, updatePlaylist } from '../../utils';
+import {
+  addToHistory,
+  createPlaylist,
+  getVideo,
+  likeVideo,
+  updatePlaylist,
+} from '../../utils';
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import { BiListPlus } from 'react-icons/bi';
 import { BsStopwatch, BsStopwatchFill } from 'react-icons/bs';
 import { useData } from '../../context/data/Context';
 import './Watch.css';
-import { IconText, VideoCard } from '../../component';
+import { IconText, PlaylistPopup, VideoCard } from '../../component';
 import { useAuth } from '../../context';
 
 export const Watch = () => {
   const { id } = useParams();
   const [video, setVideo] = useState();
+  const [modal, setModal] = useState(false);
+
   const {
     state: { videos },
   } = useData();
@@ -49,12 +57,23 @@ export const Watch = () => {
 
   return (
     <>
+      {modal && (
+        <PlaylistPopup
+          vid={video?._id}
+          onClose={() => setModal(false)}
+          onAddClick={(name) =>
+            createPlaylist(name, video?._id, token, authDispatch)
+          }
+          onPlaylistCheck={(playlistId) =>
+            updatePlaylist(playlistId, video?._id, token, authDispatch)
+          }
+        />
+      )}
       {video ? (
         <div className='watch-container'>
           <section className='video-section'>
             <h3>{video.title}</h3>
             <h4 className='txt-grey'>By {video.creator}</h4>
-
             <div className='player-wrapper'>
               <ReactPlayer
                 className='react-player'
@@ -100,7 +119,10 @@ export const Watch = () => {
                     <BsStopwatch title='Add to WatchLater' className='icon' />
                   )}
                 </IconText>
-                <IconText title='Add to Playlist'>
+                <IconText
+                  onClick={() => setModal(true)}
+                  title='Add to Playlist'
+                >
                   <BiListPlus />
                 </IconText>
               </div>
