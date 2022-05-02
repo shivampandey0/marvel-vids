@@ -5,6 +5,7 @@ export const requests = {
   videos: '/videos',
   liked: '/liked',
   history: '/history',
+  playlist: '/playlist',
 };
 
 export const ACTION_TYPES = {
@@ -14,6 +15,8 @@ export const ACTION_TYPES = {
   VIDEOS: 'VIDEOS',
   LIKED: 'LIKED',
   HISTORY: 'HISTORY',
+  UPDATE_PLAYLIST: 'UPDATE_PLAYLIST',
+  PLAYLIST: 'PLAYLIST',
 };
 
 export const categories = [

@@ -9,4 +9,7 @@ export {
   addToHistory,
   removeFromHistory,
   clearHistory,
+  getPlaylists,
+  getPlaylistVideos,
+  updatePlaylist,
 } from './server-request';
