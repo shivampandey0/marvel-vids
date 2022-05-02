@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import { useParams } from 'react-router-dom';
-import { addToHistory, getVideo, likeVideo } from '../../utils';
-import { AiOutlineLike, AiTwotoneDislike } from 'react-icons/ai';
-import { BiListPlus, BiStopwatch } from 'react-icons/bi';
+import { addToHistory, getVideo, likeVideo, updatePlaylist } from '../../utils';
+import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
+import { BiListPlus } from 'react-icons/bi';
+import { BsStopwatch, BsStopwatchFill } from 'react-icons/bs';
 import { useData } from '../../context/data/Context';
 import './Watch.css';
 import { IconText, VideoCard } from '../../component';
@@ -17,10 +18,16 @@ export const Watch = () => {
   } = useData();
 
   const {
-    authState: { token },
+    authState: {
+      token,
+      user: { playlists },
+    },
     authDispatch,
+    isInWatchLater,
     isLiked,
   } = useAuth();
+
+  const watchLaterId = playlists[0]?._id;
 
   useEffect(() => {
     (async () => {
@@ -38,7 +45,6 @@ export const Watch = () => {
     }, []);
 
   const relatedVideos = getRelatedVideos(video);
-
   const isVideoLiked = isLiked(video?._id);
 
   return (
@@ -61,13 +67,38 @@ export const Watch = () => {
             <div>
               <div className='flex-row gap-05'>
                 <IconText
-                  title={isVideoLiked ? 'Dislike' : 'Like'}
+                  title={'Like'}
                   onClick={() => likeVideo(token, video?._id, authDispatch)}
                 >
-                  {isVideoLiked ? <AiTwotoneDislike /> : <AiOutlineLike />}
+                  {isVideoLiked ? (
+                    <AiTwotoneLike className='icon txt-primary' />
+                  ) : (
+                    <AiOutlineLike className='icon' />
+                  )}
                 </IconText>
-                <IconText title='Add to Watch Later'>
-                  <BiStopwatch />
+                <IconText
+                  title={
+                    isInWatchLater(video._id)
+                      ? 'Remove from Watch Later'
+                      : 'Add to Watch Later'
+                  }
+                  onClick={() => {
+                    updatePlaylist(
+                      watchLaterId,
+                      video._id,
+                      token,
+                      authDispatch
+                    );
+                  }}
+                >
+                  {isInWatchLater(video._id) ? (
+                    <BsStopwatchFill
+                      title='Remove from WatchLater'
+                      className='icon txt-primary'
+                    />
+                  ) : (
+                    <BsStopwatch title='Add to WatchLater' className='icon' />
+                  )}
                 </IconText>
                 <IconText title='Add to Playlist'>
                   <BiListPlus />
@@ -85,7 +116,19 @@ export const Watch = () => {
             <div className='suggestions'>
               {relatedVideos &&
                 relatedVideos.map((video) => (
-                  <VideoCard key={video._id} video={video} />
+                  <VideoCard
+                    key={video._id}
+                    video={video}
+                    isInWatchLater={isInWatchLater}
+                    onWatchLaterClick={() =>
+                      updatePlaylist(
+                        watchLaterId,
+                        video._id,
+                        token,
+                        authDispatch
+                      )
+                    }
+                  />
                 ))}
             </div>
           </section>
