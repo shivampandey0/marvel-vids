@@ -11,10 +11,9 @@ import {
 import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import { BiListPlus } from 'react-icons/bi';
 import { BsStopwatch, BsStopwatchFill } from 'react-icons/bs';
-import { useData } from '../../context/data/Context';
 import './Watch.css';
 import { IconText, PlaylistPopup, VideoCard } from '../../component';
-import { useAuth } from '../../context';
+import { useAuth, useData } from '../../context';
 
 export const Watch = () => {
   const { id } = useParams();

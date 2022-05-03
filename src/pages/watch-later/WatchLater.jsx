@@ -44,7 +44,7 @@ export const WatchLater = () => {
 
   return (
     <>
-      {playlists?.length & !loading & !authLoading && (
+      {(!loading || !authLoading) && (
         <div className='grid-4 gap-05 mx-2 my-2'>
           {playlists[0]?.videos.map(({ _id }) => {
             const video = videos?.find((video) => video._id === _id);

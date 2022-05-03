@@ -19,7 +19,6 @@
 
 input[type='checkbox'] {
   margin-right: var(--size-4);
-  margin-bottom: var(--size-2);
 }
 
 @media screen and (max-width: 768px) {
