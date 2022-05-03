@@ -52,7 +52,14 @@ export const authReducer = (state, action) => {
           playlists: action.payload,
         },
       };
-
+    case ACTION_TYPES.ADD_PLAYLIST:
+      return {
+        ...state,
+        user: {
+          ...state?.user,
+          playlists: [...state.user.playlists, action.payload],
+        },
+      };
     case ACTION_TYPES.UPDATE_PLAYLIST: {
       const updatedLists = state.user.playlists.map((playlist) => {
         if (playlist._id === action.payload.playlistId) {
