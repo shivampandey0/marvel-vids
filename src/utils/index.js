@@ -10,6 +10,7 @@ export {
   removeFromHistory,
   clearHistory,
   getPlaylists,
-  getPlaylistVideos,
   updatePlaylist,
+  createPlaylist,
+  deletePlaylist,
 } from './server-request';
