@@ -20,3 +20,14 @@
   width: 80%;
   padding: var(--size-1) var(--size-2);
 }
+
+.modal-item {
+  display: inline-block;
+  width: 100%;
+  padding: var(--size-2);
+}
+
+.modal-item:hover {
+  background-color: var(--primary-light);
+  border-radius: var(--size-1);
+}

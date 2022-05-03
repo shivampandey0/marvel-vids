@@ -29,15 +29,14 @@ export const PlaylistPopup = ({
         <div className='modal-options'>
           {playlists &&
             playlists.map((playlist) => (
-              <div key={playlist._id} className='modal-option'>
-                <label>
+              <div key={playlist._id}>
+                <label className='modal-item'>
                   <input
                     type='checkbox'
                     name={playlist.name}
                     id={playlist.name}
                     checked={playlist.videos.some(({ _id }) => _id === vid)}
-                    onChange={(e) => {
-                      console.log(e);
+                    onChange={() => {
                       onPlaylistCheck(playlist._id);
                       onClose();
                     }}
@@ -58,7 +57,10 @@ export const PlaylistPopup = ({
           <button
             disabled={playlistName === ''}
             className='btn btn-primary'
-            onClick={() => onAddClick(playlistName)}
+            onClick={() => {
+              onClose();
+              onAddClick(playlistName);
+            }}
           >
             Add
           </button>
