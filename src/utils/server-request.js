@@ -121,17 +121,109 @@ const removeFromHistory = async (_id, token, dispatch) => {
 
 const clearHistory = async (token, dispatch) => {
   try {
-    const res = await axios.delete(
-      requests.history,
-      {
-        headers: { authorization: token },
-      }
-    );
+    const res = await axios.delete(requests.history, {
+      headers: { authorization: token },
+    });
 
     if (res.status === 201 || res.status === 200) {
       dispatch({
         type: ACTION_TYPES.HISTORY,
         payload: res?.data?.history,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const getPlaylists = async (token, dispatch) => {
+  try {
+    const res = await axios.get(requests.playlist, {
+      headers: { authorization: token },
+    });
+
+    if (res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.PLAYLIST,
+        payload: res?.data?.playlist,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const updatePlaylist = async (playlistId, _id, token, dispatch) => {
+  try {
+    const res = await axios.post(
+      `${requests.playlist}/${playlistId}`,
+      { _id },
+      {
+        headers: { authorization: token },
+      }
+    );
+    if (res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.UPDATE_PLAYLIST,
+        payload: { playlistId, videos: res?.data?.playlist },
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const renamePlaylist = async (playlistId, name, token, dispatch) => {
+  try {
+    const res = await axios.put(
+      `${requests.playlist}/${playlistId}`,
+      { name },
+      {
+        headers: { authorization: token },
+      }
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.PLAYLIST,
+        payload: res?.data?.playlist,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const deletePlaylist = async (playlistId, token, dispatch) => {
+  try {
+    const res = await axios.delete(`${requests.playlist}/${playlistId}`, {
+      headers: { authorization: token },
+    });
+    if (res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.PLAYLIST,
+        payload: { playlistId, videos: res?.data?.playlist },
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
+const createPlaylist = async (name, _id, token, dispatch) => {
+  try {
+    const res = await axios.post(
+      requests.playlist,
+      { name, _id },
+      {
+        headers: { authorization: token },
+      }
+    );
+
+    if (res.status === 201) {
+      dispatch({
+        type: ACTION_TYPES.ADD_PLAYLIST,
+        payload: res?.data?.playlist,
       });
     }
   } catch (error) {
@@ -148,4 +240,9 @@ export {
   addToHistory,
   removeFromHistory,
   clearHistory,
+  getPlaylists,
+  updatePlaylist,
+  createPlaylist,
+  deletePlaylist,
+  renamePlaylist,
 };

@@ -9,4 +9,9 @@ export {
   addToHistory,
   removeFromHistory,
   clearHistory,
+  getPlaylists,
+  updatePlaylist,
+  createPlaylist,
+  deletePlaylist,
+  renamePlaylist,
 } from './server-request';

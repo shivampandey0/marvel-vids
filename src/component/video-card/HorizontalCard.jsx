@@ -23,7 +23,7 @@ export const HorizontalCard = ({ video, onDeleteClick = null }) => {
         <small className='card-subtitle txt-grey'>{creator}</small>
       </div>
       {onDeleteClick && (
-        <button title='Remove from History' className='order-3 btn'>
+        <button title='Remove' className='order-3 btn'>
           <MdClear className='stroke-none' onClick={onDeleteClick} />
         </button>
       )}

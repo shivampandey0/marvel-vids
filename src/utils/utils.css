@@ -36,13 +36,11 @@
 }
 
 /* svg icons */
-
-.stroke-none{
+.stroke-none {
   stroke-width: 0;
 }
 
 svg {
-  color: black;
   font-weight: bold;
   stroke-width: 0.5px;
   height: 1.5rem;

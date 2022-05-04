@@ -1,10 +1,9 @@
 import './VideoCard.css';
-import { BsStopwatch } from 'react-icons/bs';
+import { BsStopwatch, BsStopwatchFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
-export const VideoCard = ({ video }) => {
+export const VideoCard = ({ video, onWatchLaterClick, isInWatchLater }) => {
   const { title, vid, creator, _id } = video;
-
   const navigate = useNavigate();
 
   return (
@@ -21,8 +20,15 @@ export const VideoCard = ({ video }) => {
         <small className='card-subtitle txt-grey'>{creator}</small>
       </div>
       <div className='card-icons'>
-        <button >
-          <BsStopwatch title='WatchLater' className='icon' />
+        <button onClick={onWatchLaterClick}>
+          {isInWatchLater(_id) ? (
+            <BsStopwatchFill
+              title='Remove from WatchLater'
+              className='icon  txt-primary'
+            />
+          ) : (
+            <BsStopwatch title='Add to WatchLater' className='icon' />
+          )}
         </button>
       </div>
     </div>

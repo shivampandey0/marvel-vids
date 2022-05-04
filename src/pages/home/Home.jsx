@@ -1,13 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Chip, VideoCard, VideoLoader } from '../../component';
-import { useData } from '../../context';
-import { categories } from '../../utils';
+import { useAuth, useData } from '../../context';
+import { categories, updatePlaylist } from '../../utils';
 import './Home.css';
 
 export const Home = () => {
   const { state, filterVideos } = useData();
   const [category, setCategory] = useState('All');
   const [videos, setVideos] = useState([]);
+
+  const {
+    authState: {
+      token,
+      user: { playlists },
+    },
+    authDispatch,
+    loading,
+    isInWatchLater,
+  } = useAuth();
+
+  const watchLaterId = playlists[0]?._id;
 
   useEffect(() => {
     setVideos(() => filterVideos(category));
@@ -26,8 +38,17 @@ export const Home = () => {
         ))}
       </div>
       <div className='grid-4 gap-05 mx-2 my-2'>
-        {videos?.length
-          ? videos?.map((video) => <VideoCard key={video._id} video={video} />)
+        {!loading
+          ? videos?.map((video) => (
+              <VideoCard
+                key={video._id}
+                video={video}
+                isInWatchLater={isInWatchLater}
+                onWatchLaterClick={() =>
+                  updatePlaylist(watchLaterId, video._id, token, authDispatch)
+                }
+              />
+            ))
           : [1, 2, 3].map((num) => <VideoLoader key={num} />)}
       </div>
     </>

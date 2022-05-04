@@ -8,6 +8,7 @@ import {
   Login,
   Playlists,
   Signup,
+  SinglePlaylist,
   Watch,
   WatchLater,
 } from './pages';
@@ -34,6 +35,7 @@ function App() {
               <Route path='/history' element={<History />} />
               <Route path='/liked' element={<Liked />} />
               <Route path='/playlists' element={<Playlists />} />
+              <Route path='/playlists/:id' element={<SinglePlaylist />} />
               <Route path='/watchLater' element={<WatchLater />} />
             </Route>
           </Routes>

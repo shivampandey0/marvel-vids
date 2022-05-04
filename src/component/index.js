@@ -2,6 +2,7 @@ export { Navbar } from './navbar/Navbar';
 export { Sidebar } from './sidebar/Sidebar';
 export { Input } from './input/Input';
 export { Chip } from './chip/Chip';
+export { PlaylistPopup } from './popup/PlaylistPopup';
 export { IconText } from './button/IconText';
 export { VideoLoader } from './loader/VideoLoader';
 export { VideoCard } from './video-card/VideoCard';

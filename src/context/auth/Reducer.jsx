@@ -1,5 +1,14 @@
 import { ACTION_TYPES } from '../../utils';
 
+export const initialState = {
+  token: localStorage.getItem('token'),
+  user: {
+    liked: [],
+    history: [],
+    playlists: [],
+  },
+};
+
 export const authReducer = (state, action) => {
   switch (action.type) {
     case ACTION_TYPES.LOGIN:
@@ -16,7 +25,7 @@ export const authReducer = (state, action) => {
       };
 
     case ACTION_TYPES.LOGOUT:
-      return {};
+      return { ...initialState, token: null };
 
     case ACTION_TYPES.LIKED:
       return {
@@ -35,7 +44,38 @@ export const authReducer = (state, action) => {
           history: action.payload,
         },
       };
+    case ACTION_TYPES.PLAYLIST:
+      return {
+        ...state,
+        user: {
+          ...state?.user,
+          playlists: action.payload,
+        },
+      };
+    case ACTION_TYPES.ADD_PLAYLIST:
+      return {
+        ...state,
+        user: {
+          ...state?.user,
+          playlists: [...state.user.playlists, action.payload],
+        },
+      };
+    case ACTION_TYPES.UPDATE_PLAYLIST: {
+      const updatedLists = state.user.playlists.map((playlist) => {
+        if (playlist._id === action.payload.playlistId) {
+          return { ...playlist, videos: action.payload.videos };
+        }
+        return playlist;
+      });
 
+      return {
+        ...state,
+        user: {
+          ...state?.user,
+          playlists: updatedLists,
+        },
+      };
+    }
     default:
       return state;
   }
