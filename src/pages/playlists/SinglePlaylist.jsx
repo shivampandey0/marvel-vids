@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { HorizontalCard } from '../../component';
 import { useAuth, useData } from '../../context';
 import { FaTrash, FaCheck } from 'react-icons/fa';
@@ -10,6 +10,7 @@ export const SinglePlaylist = () => {
   const { id } = useParams();
   const [editable, setEditable] = useState(false);
   const titleRef = useRef(null);
+  const navigate = useNavigate();
   const {
     authState: {
       token,
@@ -64,7 +65,6 @@ export const SinglePlaylist = () => {
                       token,
                       authDispatch
                     );
-                    // console.log(titleRef.current.innerText);
                     setEditable(false);
                   }}
                   className='btn btn-fab'
@@ -84,16 +84,17 @@ export const SinglePlaylist = () => {
               )}
               <button
                 title='Delete'
-                onClick={() =>
-                  deletePlaylist(currentPlaylist._id, token, authDispatch)
-                }
+                onClick={async () => {
+                  await navigate(-1);
+                  deletePlaylist(currentPlaylist._id, token, authDispatch);
+                }}
                 className='btn btn-fab dnd'
               >
                 <FaTrash />
               </button>
             </div>
           )}
-          {playlistVideos?.length >0 ? (
+          {playlistVideos?.length > 0 ? (
             playlistVideos.map(({ _id }) => {
               const video = videos?.find((video) => video?._id === _id);
               return (
