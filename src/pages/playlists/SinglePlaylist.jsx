@@ -1,12 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
 import { HorizontalCard } from '../../component';
 import { useAuth, useData } from '../../context';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaCheck } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
-import { deletePlaylist, updatePlaylist } from '../../utils';
+import { deletePlaylist, renamePlaylist, updatePlaylist } from '../../utils';
+import { useRef, useState } from 'react';
 
 export const SinglePlaylist = () => {
   const { id } = useParams();
+  const [editable, setEditable] = useState(false);
+  const titleRef = useRef(null);
   const {
     authState: {
       token,
@@ -32,16 +35,53 @@ export const SinglePlaylist = () => {
     );
   }
 
+  if (editable) {
+    setTimeout(() => {
+      titleRef.current.focus();
+    }, 0);
+  }
+
   return (
     <>
       {
         <div className='flex-column justify-cntr gap-1 px-4 py-4'>
-          {playlistVideos?.length > 0 && (
+          {playlistVideos && (
             <div className='flex-row justify-sb gap-05'>
-              <div className='h3 grow-1'>{currentPlaylist.name}</div>
-              <button title='Edit' onClick={() => {}} className='btn btn-fab'>
-                <AiFillEdit />
-              </button>
+              <div
+                contentEditable={editable}
+                ref={titleRef}
+                className='h3 grow-1'
+              >
+                {currentPlaylist.name}
+              </div>
+              {editable ? (
+                <button
+                  title='Done'
+                  onClick={async () => {
+                    await renamePlaylist(
+                      currentPlaylist._id,
+                      titleRef.current.innerText,
+                      token,
+                      authDispatch
+                    );
+                    // console.log(titleRef.current.innerText);
+                    setEditable(false);
+                  }}
+                  className='btn btn-fab'
+                >
+                  <FaCheck />
+                </button>
+              ) : (
+                <button
+                  title='Edit'
+                  onClick={() => {
+                    setEditable(true);
+                  }}
+                  className='btn btn-fab'
+                >
+                  <AiFillEdit />
+                </button>
+              )}
               <button
                 title='Delete'
                 onClick={() =>
@@ -53,9 +93,9 @@ export const SinglePlaylist = () => {
               </button>
             </div>
           )}
-          {playlistVideos?.length ? (
+          {playlistVideos?.length >0 ? (
             playlistVideos.map(({ _id }) => {
-              const video = videos?.find((video) => video._id === _id);
+              const video = videos?.find((video) => video?._id === _id);
               return (
                 <HorizontalCard
                   key={video._id}

@@ -13,4 +13,5 @@ export {
   updatePlaylist,
   createPlaylist,
   deletePlaylist,
+  renamePlaylist,
 } from './server-request';

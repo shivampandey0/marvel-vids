@@ -173,6 +173,27 @@ const updatePlaylist = async (playlistId, _id, token, dispatch) => {
   }
 };
 
+const renamePlaylist = async (playlistId, name, token, dispatch) => {
+  try {
+    const res = await axios.put(
+      `${requests.playlist}/${playlistId}`,
+      { name },
+      {
+        headers: { authorization: token },
+      }
+    );
+
+    if (res.status === 200) {
+      dispatch({
+        type: ACTION_TYPES.PLAYLIST,
+        payload: res?.data?.playlist,
+      });
+    }
+  } catch (error) {
+    throw Error(error);
+  }
+};
+
 const deletePlaylist = async (playlistId, token, dispatch) => {
   try {
     const res = await axios.delete(`${requests.playlist}/${playlistId}`, {
@@ -223,4 +244,5 @@ export {
   updatePlaylist,
   createPlaylist,
   deletePlaylist,
+  renamePlaylist,
 };
