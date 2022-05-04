@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { VideoCard } from '../../component';
 import { useData } from '../../context';
 import { useAuth } from '../../context/auth/Context';
@@ -31,7 +32,14 @@ export const WatchLater = () => {
   }, []);
 
   if (playlists[0]?.videos?.length === 0) {
-    return <>No Videos Found</>;
+    return (
+      <div className='flex-column gap-1 flex-center container'>
+        <h3>No Videos Found!</h3>
+        <Link className='primary-link' to={'/'}>
+          Watch Videos Now!
+        </Link>
+      </div>
+    );
   }
 
   if (loading || authLoading) {
@@ -44,23 +52,21 @@ export const WatchLater = () => {
 
   return (
     <>
-      {(!loading || !authLoading) && (
-        <div className='grid-4 gap-05 mx-2 my-2'>
-          {playlists[0]?.videos.map(({ _id }) => {
-            const video = videos?.find((video) => video._id === _id);
-            return (
-              <VideoCard
-                key={_id}
-                video={video}
-                isInWatchLater={isInWatchLater}
-                onWatchLaterClick={() =>
-                  updatePlaylist(watchLaterId, video?._id, token, authDispatch)
-                }
-              />
-            );
-          })}
-        </div>
-      )}
+      <div className='grid-4 gap-05 mx-2 my-2'>
+        {playlists[0]?.videos.map(({ _id }) => {
+          const video = videos?.find((video) => video._id === _id);
+          return (
+            <VideoCard
+              key={_id}
+              video={video}
+              isInWatchLater={isInWatchLater}
+              onWatchLaterClick={() =>
+                updatePlaylist(watchLaterId, video?._id, token, authDispatch)
+              }
+            />
+          );
+        })}
+      </div>
     </>
   );
 };
