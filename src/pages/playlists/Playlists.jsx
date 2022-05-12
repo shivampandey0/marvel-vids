@@ -1,4 +1,5 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { CircleLoader } from '../../component';
 import { useAuth } from '../../context';
 import { deletePlaylist } from '../../utils';
 
@@ -15,11 +16,7 @@ export const Playlists = () => {
   const navigate = useNavigate();
 
   if (loading) {
-    return (
-      <div className='flex-row flex-center container'>
-        <i className='fas fa-circle-notch fa-spin fa-4x'></i>
-      </div>
-    );
+    return <CircleLoader />;
   }
 
   return (
@@ -51,10 +48,7 @@ export const Playlists = () => {
         </div>
       ) : (
         <div className='flex-column gap-1 flex-center container'>
-          <h3>No Videos Found!</h3>
-          <Link className='primary-link' to={'/'}>
-            Watch Videos Now!
-          </Link>
+          <h3>No Playlists Found!</h3>
         </div>
       )}
     </>
