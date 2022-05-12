@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { CircleLoader } from '../../component';
 import { useAuth } from '../../context';
 import { deletePlaylist } from '../../utils';
+import { GrClose } from 'react-icons/gr';
 
 export const Playlists = () => {
   const {
@@ -40,7 +41,7 @@ export const Playlists = () => {
                     deletePlaylist(playlist._id, token, authDispatch)
                   }
                 >
-                  <i className='fas fa-close icon'></i>
+                  <GrClose />
                 </button>
               </div>
             </div>

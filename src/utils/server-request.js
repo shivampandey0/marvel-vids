@@ -1,5 +1,5 @@
-import { ACTION_TYPES, requests } from "./constants";
-import { axios } from "./index";
+import { ACTION_TYPES, requests } from './constants';
+import { axios } from './index';
 
 const getVideos = async (dispatch) => {
   try {
@@ -202,7 +202,7 @@ const deletePlaylist = async (playlistId, token, dispatch) => {
     if (res.status === 200) {
       dispatch({
         type: ACTION_TYPES.PLAYLIST,
-        payload: { playlistId, videos: res?.data?.playlist },
+        payload: res?.data?.playlist,
       });
     }
   } catch (error) {
