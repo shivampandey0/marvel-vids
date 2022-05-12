@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Navbar, Sidebar } from './component';
 import {
-  Error,
+  Error404,
   History,
   Home,
   Liked,
@@ -22,7 +22,7 @@ function App() {
         <Sidebar />
         <section className='pos-relative'>
           <Routes>
-            <Route path='*' element={<Error />} />
+            <Route path='*' element={<Error404 />} />
             <Route path='/' element={<Home />} />
             <Route path='/watch/:id' element={<Watch />} />
 

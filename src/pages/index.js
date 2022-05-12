@@ -1,7 +1,7 @@
 export { Home } from './home/Home';
 export { Playlists } from './playlists/Playlists';
 export { SinglePlaylist } from './playlists/SinglePlaylist';
-export { Error } from './error/Error';
+export { Error404 } from './error/Error404';
 export { Liked } from './liked/Liked';
 export { Login } from './auth/Login';
 export { Signup } from './auth/Signup';
