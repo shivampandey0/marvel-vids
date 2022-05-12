@@ -1,5 +1,5 @@
-import { ACTION_TYPES, requests } from './constants';
-import { axios } from './index';
+import { ACTION_TYPES, requests } from "./constants";
+import { axios } from "./index";
 
 const getVideos = async (dispatch) => {
   try {
@@ -8,7 +8,7 @@ const getVideos = async (dispatch) => {
       dispatch({ type: ACTION_TYPES.VIDEOS, payload: res?.data?.videos });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -19,7 +19,7 @@ const getVideo = async (id) => {
       return res?.data?.video;
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -36,7 +36,7 @@ const getLiked = async (token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -56,7 +56,7 @@ const likeVideo = async (token, _id, dispatch) => {
       dispatch({ type: ACTION_TYPES.LIKED, payload: res?.data?.likedVideo });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -73,7 +73,7 @@ const getHistory = async (token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -94,7 +94,7 @@ const addToHistory = async (_id, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -115,7 +115,7 @@ const removeFromHistory = async (_id, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -132,7 +132,7 @@ const clearHistory = async (token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -149,7 +149,7 @@ const getPlaylists = async (token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -169,7 +169,7 @@ const updatePlaylist = async (playlistId, _id, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -190,7 +190,7 @@ const renamePlaylist = async (playlistId, name, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -206,7 +206,7 @@ const deletePlaylist = async (playlistId, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -227,7 +227,7 @@ const createPlaylist = async (name, _id, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
