@@ -4,9 +4,9 @@ import {
   useReducer,
   useEffect,
   useState,
-} from 'react';
-import { getVideos } from '../../utils';
-import { dataReducer } from './Reducer';
+} from "react";
+import { getVideos } from "../../utils";
+import { dataReducer } from "./Reducer";
 
 const DataContext = createContext();
 const useData = () => useContext(DataContext);
@@ -14,10 +14,11 @@ const useData = () => useContext(DataContext);
 const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(dataReducer, {});
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const filterVideos = (category) => {
     switch (category) {
-      case 'All':
+      case "All":
         return state?.videos;
 
       default:
@@ -27,14 +28,21 @@ const DataProvider = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
-      await getVideos(dispatch);
-      setLoading(false);
+      try {
+        setLoading(true);
+        await getVideos(dispatch);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
 
   return (
-    <DataContext.Provider value={{ state, dispatch, filterVideos, loading }}>
+    <DataContext.Provider
+      value={{ state, dispatch, filterVideos, loading, error }}
+    >
       {children}
     </DataContext.Provider>
   );
