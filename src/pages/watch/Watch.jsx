@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   addToHistory,
   createPlaylist,
@@ -12,16 +12,27 @@ import { AiOutlineLike, AiTwotoneLike } from 'react-icons/ai';
 import { BiListPlus } from 'react-icons/bi';
 import { BsStopwatch, BsStopwatchFill } from 'react-icons/bs';
 import './Watch.css';
-import { IconText, PlaylistPopup, VideoCard } from '../../component';
+import {
+  CircleLoader,
+  Error,
+  IconText,
+  PlaylistPopup,
+  VideoCard,
+} from '../../component';
 import { useAuth, useData } from '../../context';
 
 export const Watch = () => {
   const { id } = useParams();
   const [video, setVideo] = useState();
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     state: { videos },
+    loading: dataLoading,
   } = useData();
 
   const {
@@ -32,15 +43,23 @@ export const Watch = () => {
     authDispatch,
     isInWatchLater,
     isLiked,
+    loading: authLoading,
   } = useAuth();
 
   const watchLaterId = playlists[0]?._id;
 
   useEffect(() => {
     (async () => {
-      const res = await getVideo(id);
-      if (token) addToHistory(res?._id, token, authDispatch);
-      setVideo(() => res);
+      setLoading(true);
+      try {
+        const res = await getVideo(id);
+        if (token) await addToHistory(res?._id, token, authDispatch);
+        setVideo(() => res);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, [id]);
 
@@ -53,6 +72,14 @@ export const Watch = () => {
 
   const relatedVideos = getRelatedVideos(video);
   const isVideoLiked = isLiked(video?._id);
+
+  if (authLoading || loading || dataLoading) {
+    return <CircleLoader />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <>
@@ -68,97 +95,100 @@ export const Watch = () => {
           }
         />
       )}
-      {video ? (
-        <div className='watch-container'>
-          <section className='video-section'>
-            <h3>{video.title}</h3>
-            <h4 className='txt-grey'>By {video.creator}</h4>
-            <div className='player-wrapper'>
-              <ReactPlayer
-                className='react-player'
-                url={`https://www.youtube.com/watch?v=${video.vid}`}
-                controls={true}
-                width={`100%`}
-                height={`100%`}
-              />
-            </div>
-            <div>
-              <div className='flex-row gap-05'>
-                <IconText
-                  title={'Like'}
-                  onClick={() => likeVideo(token, video?._id, authDispatch)}
-                >
-                  {isVideoLiked ? (
-                    <AiTwotoneLike className='icon txt-primary' />
-                  ) : (
-                    <AiOutlineLike className='icon' />
-                  )}
-                </IconText>
-                <IconText
-                  title={
-                    isInWatchLater(video._id)
-                      ? 'Remove from Watch Later'
-                      : 'Add to Watch Later'
-                  }
-                  onClick={() => {
-                    updatePlaylist(
-                      watchLaterId,
-                      video._id,
-                      token,
-                      authDispatch
-                    );
-                  }}
-                >
-                  {isInWatchLater(video._id) ? (
-                    <BsStopwatchFill
-                      title='Remove from WatchLater'
-                      className='icon txt-primary'
-                    />
-                  ) : (
-                    <BsStopwatch title='Add to WatchLater' className='icon' />
-                  )}
-                </IconText>
-                <IconText
-                  onClick={() => setModal(true)}
-                  title='Add to Playlist'
-                >
-                  <BiListPlus />
-                </IconText>
-              </div>
-            </div>
-            <hr />
-            <div>
-              <h3 className='my-2'>Description</h3>
-              <p>{video?.description}</p>
-            </div>
-          </section>
-          <section className='suggestions-section'>
-            <h2>Must Watch</h2>
-            <div className='suggestions'>
-              {relatedVideos &&
-                relatedVideos.map((video) => (
-                  <VideoCard
-                    key={video._id}
-                    video={video}
-                    isInWatchLater={isInWatchLater}
-                    onWatchLaterClick={() =>
-                      updatePlaylist(
+
+      <div className='watch-container'>
+        <section className='video-section'>
+          <h3>{video?.title}</h3>
+          <h4 className='txt-grey'>By {video?.creator}</h4>
+          <div className='player-wrapper'>
+            <ReactPlayer
+              className='react-player'
+              url={`https://www.youtube.com/watch?v=${video?.vid}`}
+              controls={true}
+              width={`100%`}
+              height={`100%`}
+            />
+          </div>
+          <div>
+            <div className='flex-row gap-05'>
+              <IconText
+                title={'Like'}
+                onClick={() =>
+                  token
+                    ? likeVideo(token, video?._id, authDispatch)
+                    : navigate('/login')
+                }
+              >
+                {isVideoLiked ? (
+                  <AiTwotoneLike className='icon txt-primary' />
+                ) : (
+                  <AiOutlineLike className='icon' />
+                )}
+              </IconText>
+              <IconText
+                title={
+                  isInWatchLater(video?._id)
+                    ? 'Remove from Watch Later'
+                    : 'Add to Watch Later'
+                }
+                onClick={() => {
+                  token
+                    ? updatePlaylist(
                         watchLaterId,
-                        video._id,
+                        video?._id,
                         token,
                         authDispatch
                       )
-                    }
+                    : navigate('/login');
+                }}
+              >
+                {isInWatchLater(video?._id) ? (
+                  <BsStopwatchFill
+                    title='Remove from WatchLater'
+                    className='icon txt-primary'
                   />
-                ))}
+                ) : (
+                  <BsStopwatch title='Add to WatchLater' className='icon' />
+                )}
+              </IconText>
+              <IconText
+                onClick={() => (token ? setModal(true) : navigate('/login'))}
+                title='Add to Playlist'
+              >
+                <BiListPlus />
+              </IconText>
             </div>
-          </section>
-        </div>
-      ) : (
-        <div className='flex-row flex-center container'>
-          <i className='fas fa-circle-notch fa-spin fa-4x'></i>
-        </div>
-      )}
+          </div>
+          <hr />
+          <div>
+            <h3 className='my-2'>Description</h3>
+            <p>{video?.description}</p>
+          </div>
+        </section>
+        <section className='suggestions-section'>
+          <h2>Must Watch</h2>
+          <div className='suggestions'>
+            {relatedVideos &&
+              relatedVideos.map((video) => (
+                <VideoCard
+                  key={video._id}
+                  video={video}
+                  isInWatchLater={isInWatchLater}
+                  onWatchLaterClick={() =>
+                    token
+                      ? updatePlaylist(
+                          watchLaterId,
+                          video?._id,
+                          token,
+                          authDispatch
+                        )
+                      : navigate('/login')
+                  }
+                />
+              ))}
+          </div>
+        </section>
+      </div>
     </>
   );
 };

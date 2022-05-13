@@ -1,11 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { VideoCard } from '../../component';
+import { CircleLoader, Error, VideoCard } from '../../component';
 import { useData } from '../../context';
 import { useAuth } from '../../context/auth/Context';
 import { getPlaylists, updatePlaylist } from '../../utils';
 
 export const WatchLater = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const {
     authState: {
       token,
@@ -18,7 +20,7 @@ export const WatchLater = () => {
 
   const {
     state: { videos },
-    loading,
+    loading: dataLoading,
   } = useData();
 
   const watchLaterId = playlists[0]?._id;
@@ -26,10 +28,25 @@ export const WatchLater = () => {
   useEffect(() => {
     if (token) {
       (async () => {
-        if (!playlists.length) await getPlaylists(token, authDispatch);
+        setLoading(true);
+        try {
+          if (!playlists.length) await getPlaylists(token, authDispatch);
+        } catch (error) {
+          setError(true);
+        } finally {
+          setLoading(false);
+        }
       })();
     }
   }, []);
+
+  if (loading || authLoading || dataLoading) {
+    return <CircleLoader />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
 
   if (playlists[0]?.videos?.length === 0) {
     return (
@@ -42,31 +59,21 @@ export const WatchLater = () => {
     );
   }
 
-  if (loading || authLoading) {
-    return (
-      <div className='flex-row flex-center container'>
-        <i className='fas fa-circle-notch fa-spin fa-4x'></i>
-      </div>
-    );
-  }
-
   return (
-    <>
-      <div className='grid-4 gap-05 mx-2 my-2'>
-        {playlists[0]?.videos.map(({ _id }) => {
-          const video = videos?.find((video) => video._id === _id);
-          return (
-            <VideoCard
-              key={_id}
-              video={video}
-              isInWatchLater={isInWatchLater}
-              onWatchLaterClick={() =>
-                updatePlaylist(watchLaterId, video?._id, token, authDispatch)
-              }
-            />
-          );
-        })}
-      </div>
-    </>
+    <div className='grid-4 gap-05 mx-2 my-2'>
+      {playlists[0]?.videos.map(({ _id }) => {
+        const video = videos?.find((video) => video._id === _id);
+        return (
+          <VideoCard
+            key={_id}
+            video={video}
+            isInWatchLater={isInWatchLater}
+            onWatchLaterClick={() =>
+              updatePlaylist(watchLaterId, video?._id, token, authDispatch)
+            }
+          />
+        );
+      })}
+    </div>
   );
 };

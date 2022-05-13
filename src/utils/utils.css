@@ -47,6 +47,11 @@ svg {
   width: 1.5rem;
 }
 
+.error-img {
+    height: 80vh;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 70em) {
   svg {
     height: 1rem;

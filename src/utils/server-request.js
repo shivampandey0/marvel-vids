@@ -8,7 +8,7 @@ const getVideos = async (dispatch) => {
       dispatch({ type: ACTION_TYPES.VIDEOS, payload: res?.data?.videos });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -19,7 +19,7 @@ const getVideo = async (id) => {
       return res?.data?.video;
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -36,7 +36,7 @@ const getLiked = async (token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -56,7 +56,7 @@ const likeVideo = async (token, _id, dispatch) => {
       dispatch({ type: ACTION_TYPES.LIKED, payload: res?.data?.likedVideo });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -73,7 +73,7 @@ const getHistory = async (token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -94,7 +94,7 @@ const addToHistory = async (_id, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -115,7 +115,7 @@ const removeFromHistory = async (_id, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -132,7 +132,7 @@ const clearHistory = async (token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -149,7 +149,7 @@ const getPlaylists = async (token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -169,7 +169,7 @@ const updatePlaylist = async (playlistId, _id, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -190,7 +190,7 @@ const renamePlaylist = async (playlistId, name, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -202,11 +202,11 @@ const deletePlaylist = async (playlistId, token, dispatch) => {
     if (res.status === 200) {
       dispatch({
         type: ACTION_TYPES.PLAYLIST,
-        payload: { playlistId, videos: res?.data?.playlist },
+        payload: res?.data?.playlist,
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 
@@ -227,7 +227,7 @@ const createPlaylist = async (name, _id, token, dispatch) => {
       });
     }
   } catch (error) {
-    throw Error(error);
+    throw new Error(error);
   }
 };
 

@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { HorizontalCard } from '../../component';
+import { CircleLoader, HorizontalCard } from '../../component';
 import { useAuth, useData } from '../../context';
 import { FaTrash, FaCheck } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
@@ -17,23 +17,19 @@ export const SinglePlaylist = () => {
       user: { playlists },
     },
     authDispatch,
-    loading,
+    loading: authLoading,
   } = useAuth();
 
   const {
     state: { videos },
-    loading: dataLoader,
+    loading,
   } = useData();
 
   const currentPlaylist = playlists?.find((playlist) => playlist._id === id);
   const playlistVideos = currentPlaylist?.videos;
 
-  if (loading || dataLoader) {
-    return (
-      <div className='flex-row flex-center container'>
-        <i className='fas fa-circle-notch fa-spin fa-4x'></i>
-      </div>
-    );
+  if (loading || authLoading) {
+    return <CircleLoader />;
   }
 
   if (editable) {
