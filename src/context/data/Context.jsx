@@ -4,27 +4,25 @@ import {
   useReducer,
   useEffect,
   useState,
-} from "react";
-import { getVideos } from "../../utils";
-import { dataReducer } from "./Reducer";
+} from 'react';
+import { getVideos } from '../../utils';
+import { dataReducer, filterCategory, sortBy } from './Reducer';
+
+const initialState = {
+  category: 'All',
+  sortBy: null,
+};
 
 const DataContext = createContext();
 const useData = () => useContext(DataContext);
 
 const DataProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(dataReducer, {});
+  const [state, dispatch] = useReducer(dataReducer, initialState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const filterVideos = (category) => {
-    switch (category) {
-      case "All":
-        return state?.videos;
-
-      default:
-        return state?.videos.filter((video) => video.category === category);
-    }
-  };
+  let filterVideos = filterCategory(state, state.videos);
+  filterVideos = sortBy(state, filterVideos);
 
   useEffect(() => {
     (async () => {
