@@ -10,35 +10,38 @@ import {
 
 export const Sidebar = () => {
   return (
-    <aside className='drawer flex-column'>
+    <aside className='drawer'>
       <div className='drawer-nav'>
-        <nav className='drawer-list flex-column'>
+        <nav className='drawer-list'>
           <NavLink
+            title='Home'
             to={'/'}
             className={({ isActive }) =>
               isActive ? 'nav-item active' : 'nav-item'
             }
           >
             <FaHome />
-            Home
+            <span className='title'>Home</span>
           </NavLink>
           <NavLink
+            title='Playlists'
             to={'/playlists'}
             className={({ isActive }) =>
               isActive ? 'nav-item active' : 'nav-item'
             }
           >
             <FaListAlt />
-            Playlists
+            <span className='title'>Playlists</span>
           </NavLink>
           <NavLink
+            title='Liked'
             to={'/liked'}
             className={({ isActive }) =>
               isActive ? 'nav-item active' : 'nav-item'
             }
           >
             <FaHeart />
-            Liked
+            <span className='title'>Liked</span>
           </NavLink>
           <NavLink
             to={'/watchLater'}
@@ -47,16 +50,17 @@ export const Sidebar = () => {
             }
           >
             <FaStopwatch />
-            Watch Later
+            <span className='title'>Watch Later</span>
           </NavLink>
           <NavLink
+            title='History'
             to={'/history'}
             className={({ isActive }) =>
               isActive ? 'nav-item active' : 'nav-item'
             }
           >
             <FaHistory />
-            History
+            <span className='title'>History</span>
           </NavLink>
         </nav>
       </div>

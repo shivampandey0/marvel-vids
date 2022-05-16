@@ -5,6 +5,7 @@
 }
 
 .container > section {
+  max-height: calc(100vh - 80px);
   overflow: auto;
   overflow-x: hidden;
   width: 100%;
@@ -58,3 +59,4 @@ svg {
     width: 1rem;
   }
 }
+

@@ -1,9 +1,9 @@
-import React from 'react';
+import './IconText.css';
 
 export const IconText = ({ title, children, onClick }) => {
   return (
-    <button className='btn' onClick={onClick}>
-      {children} {title}
+    <button className='btn icon-btn' onClick={onClick}>
+      {children} <span className='title'>{title}</span>
     </button>
   );
 };
