@@ -23,16 +23,8 @@
   gap: var(--size-2);
 }
 
-.player-wrapper {
-  position: relative;
-  margin: var(--size-2) 0;
-  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
-}
-
 .react-player {
-  position: absolute;
-  top: 0;
-  left: 0;
+  aspect-ratio: 16/9;
 }
 
 @media screen and (max-width: 70em) {
@@ -48,5 +40,6 @@
 @media screen and (max-width: 40em) {
   .suggestions {
     grid-template-columns: 1fr;
+    margin-bottom: 8rem;
   }
 }

@@ -126,11 +126,7 @@ export const Watch = () => {
                 )}
               </IconText>
               <IconText
-                title={
-                  isInWatchLater(video?._id)
-                    ? 'Remove from Watch Later'
-                    : 'Add to Watch Later'
-                }
+                title={'Watch Later'}
                 onClick={() => {
                   token
                     ? updatePlaylist(
