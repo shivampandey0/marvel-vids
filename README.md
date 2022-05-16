@@ -1,72 +1,66 @@
-# MarvelVids
+<div align="center">
+  <img src="/public/logo192.png" height="200" width="200" alt="logo"/>
 
-## Getting Started with Create React App
+# Marvel Vids
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Home of screaming v10s and other content of Formula 1.
 
-## Available Scripts
+![Forks](https://img.shields.io/github/forks/shivampandey0/marvel-vids)
+![Stars](https://img.shields.io/github/stars/shivampandey0/marvel-vids)
 
-In the project directory, you can run:
+ </div>
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## How to run the app locally?
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+$ git clone https://github.com/shivampandey0/marvel-vids.git
+$ cd marvel-vids
+$ npm install
+$ npm start
+```
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## About Marvel Vids
 
-### `npm run build`
+* Marvel Vids was envisioned to be a platform where one can easily find content relating to Marvel.
+- With content categoriezed by Avengers, featuring nail biting moments from Marvel Movies.
+* Additionally we have implemented various features to ensure you have an amazing experience as you binge watch your favourite videos, like and create your own collections.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
+- <strong>Authentication</strong> - User can create account, login and logout.
+- <strong>Landing Page</strong>  with dynamic categories. User can easily view videos based on selected category.
+- <strong>Single Video Page</strong>  - User can like video, add to watch Later, Add/Remove from Playlist with realtime updation. User can view video on dynamic embed player with information about the video prominently displayed at the bottom. User can also view related videos based on same cateogory on the right of embedded player. On playing the video, it will be added to User history.
+* <strong>Playlist Page</strong> , consists of all User Playlists. User can browse various playlists, check out individual playlist and also delete both video from playlist and also entire playlist itself.
+- <strong>Watch Later Page</strong>  - User can view videos marked to watch later and also delete them.
+* <strong>History Page</strong>  - User can view previously watched videos and also clear entire history.
+- <strong>Liked Videos Page</strong>  - User can view and delete their liked videos.
+* Built with a mobile first approach, we ensure responsiveness for nearly all devices from 375px onwards.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Tech Stack and Tools
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React JS
+- React Router v6
+- React Context API + useReducer
+- [MarvelUI](https://marvel-ui.vercel.app/) Component Library for CSS
+- Backend setup using Express, Node and MongoDB [MarvelVidsBackend](https://github.com/shivampandey0/MarvelVidsBackend)
+- Netlify for Deployment
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Live Deployment
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Checkout the live deployment here: [MarvelVids](https://marvel-vids.netlify.app/)
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Demo Video
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Preview](preview.gif)
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
