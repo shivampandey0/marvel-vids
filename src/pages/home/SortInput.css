@@ -1,0 +1,12 @@
+.sort-menu {
+  position: absolute;
+  z-index: 3;
+  left: 100%;
+  top: 10%;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sort-menu > .btn:hover {
+  background-color: var(--border);
+}

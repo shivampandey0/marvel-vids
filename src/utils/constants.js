@@ -13,6 +13,8 @@ export const ACTION_TYPES = {
   USER_DATA: 'USER_DATA',
   LOGOUT: 'LOGOUT',
   VIDEOS: 'VIDEOS',
+  CATEGORY: 'CATEGORY',
+  SORT: 'SORT',
   LIKED: 'LIKED',
   HISTORY: 'HISTORY',
   UPDATE_PLAYLIST: 'UPDATE_PLAYLIST',
@@ -28,3 +30,8 @@ export const categories = [
   'Thor',
   'Black Widow',
 ];
+
+export const SORT_OPTIONS = {
+  LATEST: 'LATEST',
+  OLDEST: 'OLDEST',
+};
