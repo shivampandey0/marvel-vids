@@ -3,8 +3,6 @@
 
 # Marvel Vids
 
-### Home of screaming v10s and other content of Formula 1.
-
 ![Forks](https://img.shields.io/github/forks/shivampandey0/marvel-vids)
 ![Stars](https://img.shields.io/github/stars/shivampandey0/marvel-vids)
 
