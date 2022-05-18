@@ -30,3 +30,13 @@
   background-color: var(--primary);
 }
 
+
+@media screen and (max-width: 1024px) {
+  .navbar{
+    min-height: var(--scale-6);
+    flex-wrap: wrap;
+    padding: var(--scale-1);
+    align-content: flex-start;
+    gap: var(--size-2);
+  }
+}

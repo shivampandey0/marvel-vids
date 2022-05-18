@@ -4,6 +4,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context';
 import './Navbar.css';
+import { SearchField } from './SearchField';
 
 export const Navbar = () => {
   const {
@@ -27,17 +28,9 @@ export const Navbar = () => {
           </Link>
         </div>
 
-        <div className='search'>
-          <i className='fa-solid fa-magnifying-glass icon' />
-          <input
-            className='search-field'
-            type='text'
-            placeholder='Search...'
-            aria-label='Search Products'
-          />
-        </div>
+        <SearchField />
 
-        <div>
+        <div className='actions'>
           {token ? (
             <div
               className='btn btn-primary user'
@@ -56,7 +49,9 @@ export const Navbar = () => {
               {!showDropdown ? <FiChevronDown /> : <FiChevronUp />}
               {showDropdown ? (
                 <div className='dropdown'>
-                  <div className='dropdown-item' onClick={handleLogout}>Logout</div>
+                  <div className='dropdown-item' onClick={handleLogout}>
+                    Logout
+                  </div>
                 </div>
               ) : null}
             </div>
