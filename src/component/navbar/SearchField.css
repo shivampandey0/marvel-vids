@@ -1,0 +1,30 @@
+.search {
+  position: relative;
+  width: 40%;
+}
+
+.search-suggestions {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 12px 2px rgba(0, 0, 0, 0.522);
+  width: 100%;
+  height: 40vh;
+  overflow-y: auto;
+  z-index: 2;
+}
+
+.suggestion-item {
+  padding: var(--scale-075) var(--scale-1);
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: var(--border);
+}
+
+@media screen and (max-width: 1024px) {
+  .search {
+    order: 3;
+    width: 100%;
+  }
+}
