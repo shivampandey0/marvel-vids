@@ -7,6 +7,7 @@ import {
   Liked,
   Login,
   Playlists,
+  SearchResults,
   Signup,
   SinglePlaylist,
   Watch,
@@ -25,6 +26,7 @@ function App() {
             <Route path='*' element={<Error404 />} />
             <Route path='/' element={<Home />} />
             <Route path='/watch/:id' element={<Watch />} />
+            <Route path='/results' element={<SearchResults />} />
 
             <Route element={<RedirectAuth />}>
               <Route path='/login' element={<Login />} />

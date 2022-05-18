@@ -8,3 +8,4 @@ export { Signup } from './auth/Signup';
 export { Watch } from './watch/Watch';
 export { WatchLater } from './watch-later/WatchLater';
 export { History } from './history/History';
+export { SearchResults } from './search-results/SearchResults';
