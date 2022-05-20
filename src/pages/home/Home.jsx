@@ -10,6 +10,7 @@ import { useAuth, useData } from '../../context';
 import { ACTION_TYPES, categories, updatePlaylist } from '../../utils';
 import { SORT_OPTIONS } from '../../utils/constants';
 import './Home.css';
+import { toast } from 'react-toastify';
 
 export const Home = () => {
   const { state, filterVideos: videos, loading, error, dispatch } = useData();
@@ -34,6 +35,10 @@ export const Home = () => {
   if (error) {
     return <Error />;
   }
+
+  const notify = (msg) => {
+    toast(msg);
+  };
 
   return (
     <>
@@ -98,7 +103,15 @@ export const Home = () => {
               video={video}
               isInWatchLater={isInWatchLater}
               onWatchLaterClick={() =>
-                updatePlaylist(watchLaterId, video._id, token, authDispatch)
+                token
+                  ? updatePlaylist(
+                      watchLaterId,
+                      video._id,
+                      token,
+                      authDispatch,
+                      notify
+                    )
+                  : notify('Please Login!')
               }
             />
           ))}

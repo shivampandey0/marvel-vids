@@ -14,6 +14,8 @@ import {
   WatchLater,
 } from './pages';
 import { RedirectAuth, RequiresAuth } from './router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -43,6 +45,7 @@ function App() {
           </Routes>
         </section>
       </main>
+      <ToastContainer />
     </>
   );
 }

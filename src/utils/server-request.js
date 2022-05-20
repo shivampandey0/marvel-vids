@@ -153,7 +153,7 @@ const getPlaylists = async (token, dispatch) => {
   }
 };
 
-const updatePlaylist = async (playlistId, _id, token, dispatch) => {
+const updatePlaylist = async (playlistId, _id, token, dispatch, notify) => {
   try {
     const res = await axios.post(
       `${requests.playlist}/${playlistId}`,
@@ -167,8 +167,11 @@ const updatePlaylist = async (playlistId, _id, token, dispatch) => {
         type: ACTION_TYPES.UPDATE_PLAYLIST,
         payload: { playlistId, videos: res?.data?.playlist },
       });
+      const exists = res?.data?.playlist?.some((list) => list._id === _id);
+      exists ? notify('Added to Playlist') : notify('Removed from Playlist');
     }
   } catch (error) {
+    notify('Some Error occured');
     throw new Error(error);
   }
 };
