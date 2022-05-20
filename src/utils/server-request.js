@@ -40,7 +40,7 @@ const getLiked = async (token, dispatch) => {
   }
 };
 
-const likeVideo = async (token, _id, dispatch) => {
+const likeVideo = async (token, _id, dispatch, notify) => {
   try {
     const res = await axios.post(
       requests.liked,
@@ -54,8 +54,11 @@ const likeVideo = async (token, _id, dispatch) => {
 
     if (res.status === 200 || res.status === 201) {
       dispatch({ type: ACTION_TYPES.LIKED, payload: res?.data?.likedVideo });
+      const exists = res?.data?.likedVideo?.some((list) => list._id === _id);
+      notify(exists ? 'Added to Likes' : 'Removed from Likes');
     }
   } catch (error) {
+    notify('Some error occured');
     throw new Error(error);
   }
 };
@@ -168,7 +171,7 @@ const updatePlaylist = async (playlistId, _id, token, dispatch, notify) => {
         payload: { playlistId, videos: res?.data?.playlist },
       });
       const exists = res?.data?.playlist?.some((list) => list._id === _id);
-      exists ? notify('Added to Playlist') : notify('Removed from Playlist');
+      notify(exists ? 'Added to Playlist' : 'Removed from Playlist');
     }
   } catch (error) {
     notify('Some Error occured');
@@ -213,7 +216,7 @@ const deletePlaylist = async (playlistId, token, dispatch) => {
   }
 };
 
-const createPlaylist = async (name, _id, token, dispatch) => {
+const createPlaylist = async (name, _id, token, dispatch, notify) => {
   try {
     const res = await axios.post(
       requests.playlist,
@@ -228,8 +231,10 @@ const createPlaylist = async (name, _id, token, dispatch) => {
         type: ACTION_TYPES.ADD_PLAYLIST,
         payload: res?.data?.playlist,
       });
+      notify(`Added to ${name} playlist`);
     }
   } catch (error) {
+    notify('Some error occured');
     throw new Error(error);
   }
 };

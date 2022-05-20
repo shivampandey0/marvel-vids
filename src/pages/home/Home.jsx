@@ -11,6 +11,7 @@ import { ACTION_TYPES, categories, updatePlaylist } from '../../utils';
 import { SORT_OPTIONS } from '../../utils/constants';
 import './Home.css';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
   const { state, filterVideos: videos, loading, error, dispatch } = useData();
@@ -26,6 +27,8 @@ export const Home = () => {
     isInWatchLater,
   } = useAuth();
 
+  const navigate = useNavigate();
+
   const watchLaterId = playlists[0]?._id;
 
   if (authLoading || loading) {
@@ -36,9 +39,7 @@ export const Home = () => {
     return <Error />;
   }
 
-  const notify = (msg) => {
-    toast(msg);
-  };
+  const notify = (msg) => toast(msg);
 
   return (
     <>
@@ -111,7 +112,7 @@ export const Home = () => {
                       authDispatch,
                       notify
                     )
-                  : notify('Please Login!')
+                  : navigate('/login')
               }
             />
           ))}
