@@ -20,6 +20,7 @@ import {
   VideoCard,
 } from '../../component';
 import { useAuth, useData } from '../../context';
+import { toast } from 'react-toastify';
 
 export const Watch = () => {
   const { id } = useParams();
@@ -63,6 +64,8 @@ export const Watch = () => {
     })();
   }, [id]);
 
+  const notify = (msg) => toast(msg);
+
   const getRelatedVideos = (video) =>
     videos?.reduce((acc, curr) => {
       (curr?.category === video?.category) & (curr._id !== video?._id) &&
@@ -88,10 +91,10 @@ export const Watch = () => {
           vid={video?._id}
           onClose={() => setModal(false)}
           onAddClick={(name) =>
-            createPlaylist(name, video?._id, token, authDispatch)
+            createPlaylist(name, video?._id, token, authDispatch, notify)
           }
           onPlaylistCheck={(playlistId) =>
-            updatePlaylist(playlistId, video?._id, token, authDispatch)
+            updatePlaylist(playlistId, video?._id, token, authDispatch, notify)
           }
         />
       )}
@@ -115,7 +118,7 @@ export const Watch = () => {
                 title={'Like'}
                 onClick={() =>
                   token
-                    ? likeVideo(token, video?._id, authDispatch)
+                    ? likeVideo(token, video?._id, authDispatch, notify)
                     : navigate('/login')
                 }
               >
@@ -133,7 +136,8 @@ export const Watch = () => {
                         watchLaterId,
                         video?._id,
                         token,
-                        authDispatch
+                        authDispatch,
+                        notify
                       )
                     : navigate('/login');
                 }}
@@ -176,7 +180,8 @@ export const Watch = () => {
                           watchLaterId,
                           video?._id,
                           token,
-                          authDispatch
+                          authDispatch,
+                          notify
                         )
                       : navigate('/login')
                   }

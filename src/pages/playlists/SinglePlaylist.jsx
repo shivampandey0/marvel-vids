@@ -5,6 +5,7 @@ import { FaTrash, FaCheck } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
 import { deletePlaylist, renamePlaylist, updatePlaylist } from '../../utils';
 import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export const SinglePlaylist = () => {
   const { id } = useParams();
@@ -38,6 +39,8 @@ export const SinglePlaylist = () => {
     }, 0);
   }
 
+  const notify = (msg) => toast(msg);
+
   return (
     <>
       {
@@ -59,7 +62,8 @@ export const SinglePlaylist = () => {
                       currentPlaylist._id,
                       titleRef.current.innerText,
                       token,
-                      authDispatch
+                      authDispatch,
+                      notify
                     );
                     setEditable(false);
                   }}
@@ -82,7 +86,12 @@ export const SinglePlaylist = () => {
                 title='Delete'
                 onClick={async () => {
                   await navigate(-1);
-                  deletePlaylist(currentPlaylist._id, token, authDispatch);
+                  deletePlaylist(
+                    currentPlaylist._id,
+                    token,
+                    authDispatch,
+                    notify
+                  );
                 }}
                 className='btn btn-fab dnd'
               >
@@ -102,7 +111,8 @@ export const SinglePlaylist = () => {
                       currentPlaylist._id,
                       video?._id,
                       token,
-                      authDispatch
+                      authDispatch,
+                      notify
                     )
                   }
                 />

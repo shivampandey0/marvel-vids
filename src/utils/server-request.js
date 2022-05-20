@@ -40,7 +40,7 @@ const getLiked = async (token, dispatch) => {
   }
 };
 
-const likeVideo = async (token, _id, dispatch) => {
+const likeVideo = async (token, _id, dispatch, notify) => {
   try {
     const res = await axios.post(
       requests.liked,
@@ -54,8 +54,11 @@ const likeVideo = async (token, _id, dispatch) => {
 
     if (res.status === 200 || res.status === 201) {
       dispatch({ type: ACTION_TYPES.LIKED, payload: res?.data?.likedVideo });
+      const exists = res?.data?.likedVideo?.some((list) => list._id === _id);
+      notify(exists ? 'Added to Likes' : 'Removed from Likes');
     }
   } catch (error) {
+    notify('Some error occured');
     throw new Error(error);
   }
 };
@@ -98,7 +101,7 @@ const addToHistory = async (_id, token, dispatch) => {
   }
 };
 
-const removeFromHistory = async (_id, token, dispatch) => {
+const removeFromHistory = async (_id, token, dispatch, notify) => {
   try {
     const res = await axios.put(
       requests.history,
@@ -113,13 +116,15 @@ const removeFromHistory = async (_id, token, dispatch) => {
         type: ACTION_TYPES.HISTORY,
         payload: res?.data?.history,
       });
+      notify('Removed from History');
     }
   } catch (error) {
+    notify('Some Error occured');
     throw new Error(error);
   }
 };
 
-const clearHistory = async (token, dispatch) => {
+const clearHistory = async (token, dispatch, notify) => {
   try {
     const res = await axios.delete(requests.history, {
       headers: { authorization: token },
@@ -130,8 +135,10 @@ const clearHistory = async (token, dispatch) => {
         type: ACTION_TYPES.HISTORY,
         payload: res?.data?.history,
       });
+      notify('History cleared');
     }
   } catch (error) {
+    notify('Some Error occured');
     throw new Error(error);
   }
 };
@@ -153,7 +160,7 @@ const getPlaylists = async (token, dispatch) => {
   }
 };
 
-const updatePlaylist = async (playlistId, _id, token, dispatch) => {
+const updatePlaylist = async (playlistId, _id, token, dispatch, notify) => {
   try {
     const res = await axios.post(
       `${requests.playlist}/${playlistId}`,
@@ -167,13 +174,16 @@ const updatePlaylist = async (playlistId, _id, token, dispatch) => {
         type: ACTION_TYPES.UPDATE_PLAYLIST,
         payload: { playlistId, videos: res?.data?.playlist },
       });
+      const exists = res?.data?.playlist?.some((list) => list._id === _id);
+      notify(exists ? 'Added to Playlist' : 'Removed from Playlist');
     }
   } catch (error) {
+    notify('Some Error occured');
     throw new Error(error);
   }
 };
 
-const renamePlaylist = async (playlistId, name, token, dispatch) => {
+const renamePlaylist = async (playlistId, name, token, dispatch, notify) => {
   try {
     const res = await axios.put(
       `${requests.playlist}/${playlistId}`,
@@ -188,13 +198,15 @@ const renamePlaylist = async (playlistId, name, token, dispatch) => {
         type: ACTION_TYPES.PLAYLIST,
         payload: res?.data?.playlist,
       });
+      notify('Playlist renamed');
     }
   } catch (error) {
+    notify('Some Error occured');
     throw new Error(error);
   }
 };
 
-const deletePlaylist = async (playlistId, token, dispatch) => {
+const deletePlaylist = async (playlistId, token, dispatch, notify) => {
   try {
     const res = await axios.delete(`${requests.playlist}/${playlistId}`, {
       headers: { authorization: token },
@@ -204,13 +216,15 @@ const deletePlaylist = async (playlistId, token, dispatch) => {
         type: ACTION_TYPES.PLAYLIST,
         payload: res?.data?.playlist,
       });
+      notify('Playlist Deleted');
     }
   } catch (error) {
+    notify('Some error occured');
     throw new Error(error);
   }
 };
 
-const createPlaylist = async (name, _id, token, dispatch) => {
+const createPlaylist = async (name, _id, token, dispatch, notify) => {
   try {
     const res = await axios.post(
       requests.playlist,
@@ -225,8 +239,10 @@ const createPlaylist = async (name, _id, token, dispatch) => {
         type: ACTION_TYPES.ADD_PLAYLIST,
         payload: res?.data?.playlist,
       });
+      notify(`Added to ${name} playlist`);
     }
   } catch (error) {
+    notify('Some error occured');
     throw new Error(error);
   }
 };

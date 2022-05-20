@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CircleLoader, Error, HorizontalCard } from '../../component';
 import { useAuth } from '../../context';
 import { getHistory, removeFromHistory, clearHistory } from '../../utils';
+import { toast } from 'react-toastify';
 
 export const History = () => {
   const [loading, setLoading] = useState(false);
@@ -39,13 +40,15 @@ export const History = () => {
     return <Error />;
   }
 
+  const notify = (msg) => toast(msg);
+
   return (
     <>
       <div className='flex-column justify-cntr gap-1 px-4 py-4'>
         {historyVideos.length > 0 && (
           <div>
             <button
-              onClick={() => clearHistory(token, authDispatch)}
+              onClick={() => clearHistory(token, authDispatch, notify)}
               className='btn btn-secondary'
             >
               Clear History
@@ -58,7 +61,7 @@ export const History = () => {
               key={video._id}
               video={video}
               onDeleteClick={() =>
-                removeFromHistory(video._id, token, authDispatch)
+                removeFromHistory(video._id, token, authDispatch, notify)
               }
             />
           ))
