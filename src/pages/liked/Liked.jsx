@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CircleLoader, Error, HorizontalCard } from '../../component';
 import { useAuth } from '../../context';
-import { getLiked } from '../../utils';
+import { getLiked, likeVideo } from '../../utils';
+import { toast } from 'react-toastify';
 
 export const Liked = () => {
   const [loading, setLoading] = useState(false);
@@ -39,11 +40,19 @@ export const Liked = () => {
     return <Error />;
   }
 
+  const notify = (msg) => toast(msg);
+
   return (
     <div className='flex-column justify-cntr gap-1 px-4 py-4'>
       {likedVideos.length ? (
         likedVideos.map((video) => (
-          <HorizontalCard key={video._id} video={video} />
+          <HorizontalCard
+            key={video._id}
+            video={video}
+            onDeleteClick={() =>
+              likeVideo(token, video._id, authDispatch, notify)
+            }
+          />
         ))
       ) : (
         <div className='flex-column gap-1 flex-center container'>
