@@ -101,7 +101,7 @@ const addToHistory = async (_id, token, dispatch) => {
   }
 };
 
-const removeFromHistory = async (_id, token, dispatch) => {
+const removeFromHistory = async (_id, token, dispatch, notify) => {
   try {
     const res = await axios.put(
       requests.history,
@@ -118,11 +118,12 @@ const removeFromHistory = async (_id, token, dispatch) => {
       });
     }
   } catch (error) {
+    notify('Some Error occured');
     throw new Error(error);
   }
 };
 
-const clearHistory = async (token, dispatch) => {
+const clearHistory = async (token, dispatch, notify) => {
   try {
     const res = await axios.delete(requests.history, {
       headers: { authorization: token },
@@ -133,8 +134,10 @@ const clearHistory = async (token, dispatch) => {
         type: ACTION_TYPES.HISTORY,
         payload: res?.data?.history,
       });
+      notify('History cleared');
     }
   } catch (error) {
+    notify('Some Error occured');
     throw new Error(error);
   }
 };
@@ -179,7 +182,7 @@ const updatePlaylist = async (playlistId, _id, token, dispatch, notify) => {
   }
 };
 
-const renamePlaylist = async (playlistId, name, token, dispatch) => {
+const renamePlaylist = async (playlistId, name, token, dispatch, notify) => {
   try {
     const res = await axios.put(
       `${requests.playlist}/${playlistId}`,
@@ -194,13 +197,15 @@ const renamePlaylist = async (playlistId, name, token, dispatch) => {
         type: ACTION_TYPES.PLAYLIST,
         payload: res?.data?.playlist,
       });
+      notify('Playlist renamed');
     }
   } catch (error) {
+    notify('Some Error occured');
     throw new Error(error);
   }
 };
 
-const deletePlaylist = async (playlistId, token, dispatch) => {
+const deletePlaylist = async (playlistId, token, dispatch, notify) => {
   try {
     const res = await axios.delete(`${requests.playlist}/${playlistId}`, {
       headers: { authorization: token },
@@ -210,8 +215,10 @@ const deletePlaylist = async (playlistId, token, dispatch) => {
         type: ACTION_TYPES.PLAYLIST,
         payload: res?.data?.playlist,
       });
+      notify('Playlist Deleted');
     }
   } catch (error) {
+    notify('Some error occured');
     throw new Error(error);
   }
 };

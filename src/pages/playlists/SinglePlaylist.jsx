@@ -62,7 +62,8 @@ export const SinglePlaylist = () => {
                       currentPlaylist._id,
                       titleRef.current.innerText,
                       token,
-                      authDispatch
+                      authDispatch,
+                      notify
                     );
                     setEditable(false);
                   }}
@@ -85,7 +86,12 @@ export const SinglePlaylist = () => {
                 title='Delete'
                 onClick={async () => {
                   await navigate(-1);
-                  deletePlaylist(currentPlaylist._id, token, authDispatch);
+                  deletePlaylist(
+                    currentPlaylist._id,
+                    token,
+                    authDispatch,
+                    notify
+                  );
                 }}
                 className='btn btn-fab dnd'
               >
