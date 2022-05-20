@@ -5,6 +5,7 @@ import { FaTrash, FaCheck } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
 import { deletePlaylist, renamePlaylist, updatePlaylist } from '../../utils';
 import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export const SinglePlaylist = () => {
   const { id } = useParams();
@@ -37,6 +38,8 @@ export const SinglePlaylist = () => {
       titleRef.current.focus();
     }, 0);
   }
+
+  const notify = (msg) => toast(msg);
 
   return (
     <>
@@ -102,7 +105,8 @@ export const SinglePlaylist = () => {
                       currentPlaylist._id,
                       video?._id,
                       token,
-                      authDispatch
+                      authDispatch,
+                      notify
                     )
                   }
                 />

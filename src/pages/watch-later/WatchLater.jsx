@@ -4,6 +4,7 @@ import { CircleLoader, Error, VideoCard } from '../../component';
 import { useData } from '../../context';
 import { useAuth } from '../../context/auth/Context';
 import { getPlaylists, updatePlaylist } from '../../utils';
+import { toast } from 'react-toastify';
 
 export const WatchLater = () => {
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,8 @@ export const WatchLater = () => {
   } = useData();
 
   const watchLaterId = playlists[0]?._id;
+
+  const notify = (msg) => toast(msg);
 
   useEffect(() => {
     if (token) {
@@ -69,7 +72,13 @@ export const WatchLater = () => {
             video={video}
             isInWatchLater={isInWatchLater}
             onWatchLaterClick={() =>
-              updatePlaylist(watchLaterId, video?._id, token, authDispatch)
+              updatePlaylist(
+                watchLaterId,
+                video?._id,
+                token,
+                authDispatch,
+                notify
+              )
             }
           />
         );

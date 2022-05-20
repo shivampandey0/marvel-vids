@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { CircleLoader, Error, VideoCard } from '../../component';
 import { useAuth, useData } from '../../context';
 import { updatePlaylist } from '../../utils';
+import { toast } from 'react-toastify';
 
 export const SearchResults = () => {
   const {
@@ -22,6 +23,8 @@ export const SearchResults = () => {
   } = useData();
 
   const watchLaterId = playlists[0]?._id;
+
+  const notify = (msg) => toast(msg);
 
   if (authLoading || loading) {
     return <CircleLoader />;
@@ -51,7 +54,13 @@ export const SearchResults = () => {
               video={video}
               isInWatchLater={isInWatchLater}
               onWatchLaterClick={() =>
-                updatePlaylist(watchLaterId, video._id, token, authDispatch)
+                updatePlaylist(
+                  watchLaterId,
+                  video._id,
+                  token,
+                  authDispatch,
+                  notify
+                )
               }
             />
           ))}
