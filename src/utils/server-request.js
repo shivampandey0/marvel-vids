@@ -116,6 +116,7 @@ const removeFromHistory = async (_id, token, dispatch, notify) => {
         type: ACTION_TYPES.HISTORY,
         payload: res?.data?.history,
       });
+      notify('Removed from History');
     }
   } catch (error) {
     notify('Some Error occured');

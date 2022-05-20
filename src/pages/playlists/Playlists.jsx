@@ -3,6 +3,7 @@ import { CircleLoader } from '../../component';
 import { useAuth } from '../../context';
 import { deletePlaylist } from '../../utils';
 import { GrClose } from 'react-icons/gr';
+import { toast } from 'react-toastify';
 
 export const Playlists = () => {
   const {
@@ -19,6 +20,8 @@ export const Playlists = () => {
   if (loading) {
     return <CircleLoader />;
   }
+
+  const notify = (msg) => toast(msg);
 
   return (
     <>
@@ -38,7 +41,7 @@ export const Playlists = () => {
               <div className='card-icons top-right'>
                 <button
                   onClick={() =>
-                    deletePlaylist(playlist._id, token, authDispatch)
+                    deletePlaylist(playlist._id, token, authDispatch, notify)
                   }
                 >
                   <GrClose />
