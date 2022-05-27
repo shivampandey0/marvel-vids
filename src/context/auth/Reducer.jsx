@@ -41,7 +41,7 @@ export const authReducer = (state, action) => {
         ...state,
         user: {
           ...state?.user,
-          history: action.payload,
+          history: [...action.payload].reverse(),
         },
       };
     case ACTION_TYPES.PLAYLIST:
