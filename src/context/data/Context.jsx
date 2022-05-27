@@ -22,6 +22,7 @@ const DataProvider = ({ children }) => {
   const [error, setError] = useState(false);
 
   let filterVideos = filterCategory(state, state.videos);
+  
   filterVideos = sortBy(state, filterVideos);
 
   useEffect(() => {
