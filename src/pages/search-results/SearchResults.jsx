@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CircleLoader, Error, VideoCard } from '../../component';
 import { useAuth, useData } from '../../context';
 import { updatePlaylist } from '../../utils';
@@ -21,6 +21,8 @@ export const SearchResults = () => {
     loading,
     error,
   } = useData();
+
+  const navigate = useNavigate();
 
   const watchLaterId = playlists[0]?._id;
 
@@ -54,13 +56,15 @@ export const SearchResults = () => {
               video={video}
               isInWatchLater={isInWatchLater}
               onWatchLaterClick={() =>
-                updatePlaylist(
-                  watchLaterId,
-                  video._id,
-                  token,
-                  authDispatch,
-                  notify
-                )
+                token
+                  ? updatePlaylist(
+                      watchLaterId,
+                      video._id,
+                      token,
+                      authDispatch,
+                      notify
+                    )
+                  : navigate('/login')
               }
             />
           ))}
