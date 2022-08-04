@@ -54,7 +54,6 @@ export const Watch = () => {
       setLoading(true);
       try {
         const res = await getVideo(id);
-        if (token) await addToHistory(res?._id, token, authDispatch);
         setVideo(() => res);
       } catch (error) {
         setError(true);
@@ -108,6 +107,9 @@ export const Watch = () => {
               className='react-player'
               url={`https://www.youtube.com/watch?v=${video?.vid}`}
               controls={true}
+              onStart={() => {
+                if (token) addToHistory(id, token, authDispatch);
+              }}
               width={`100%`}
               height={`100%`}
             />
